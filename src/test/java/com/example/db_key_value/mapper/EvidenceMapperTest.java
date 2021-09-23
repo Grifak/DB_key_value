@@ -28,11 +28,11 @@ public class EvidenceMapperTest {
     public void testRequestDtoToEntity(){
         Timestamp dateTime = Timestamp.valueOf(LocalDateTime.now());
         Long key = Long.valueOf(1);
-        EvidenceRequestDto requestDto = EvidenceRequestDto.builder()
-                .value("test")
-                .key(key)
-                .ttl(dateTime)
-                .build();
+        EvidenceRequestDto requestDto = new  EvidenceRequestDto(
+                key,
+                "test",
+                dateTime
+        );
 
         EvidenceEntity entity = mapper.requestDtoToEntity(requestDto);
 

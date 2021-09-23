@@ -35,14 +35,13 @@ class EvidenceManagementControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
-
     @Test
     void createEvidence() throws Exception{
-        EvidenceRequestDto requestDto = EvidenceRequestDto.builder()
-                .key(1L)
-                .value("test")
-                .ttl(Timestamp.valueOf(LocalDateTime.of(2021,10,30,22,11)))
-                .build();
+        EvidenceRequestDto requestDto = new  EvidenceRequestDto(
+                1L,
+                "test",
+                Timestamp.valueOf(LocalDateTime.of(2021,10,30,22,11))
+        );
 
         this.mockMvc.perform(post("/api/evidence/management")
                 .content(objectMapper.writeValueAsString(requestDto))
@@ -55,10 +54,10 @@ class EvidenceManagementControllerTest {
 
     @Test
     void createEvidenceEmptyKeyField() throws Exception{
-        EvidenceRequestDto requestDto = EvidenceRequestDto.builder()
-                .value("test")
-                .ttl(Timestamp.valueOf(LocalDateTime.of(2021,10,30,22,11)))
-                .build();
+        EvidenceRequestDto requestDto = new  EvidenceRequestDto(
+                "test",
+                Timestamp.valueOf(LocalDateTime.of(2021,10,30,22,11))
+        );
 
         this.mockMvc.perform(post("/api/evidence/management")
                 .content(objectMapper.writeValueAsString(requestDto))
@@ -74,10 +73,10 @@ class EvidenceManagementControllerTest {
 
     @Test
     void createEvidenceEmptyValueField() throws Exception{
-        EvidenceRequestDto requestDto = EvidenceRequestDto.builder()
-                .key(1L)
-                .ttl(Timestamp.valueOf(LocalDateTime.of(2021,10,30,22,11)))
-                .build();
+        EvidenceRequestDto requestDto = new  EvidenceRequestDto(
+                1L,
+                Timestamp.valueOf(LocalDateTime.of(2021,10,30,22,11))
+        );
 
         this.mockMvc.perform(post("/api/evidence/management")
                 .content(objectMapper.writeValueAsString(requestDto))

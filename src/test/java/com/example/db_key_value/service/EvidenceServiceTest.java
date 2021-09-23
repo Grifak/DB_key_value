@@ -36,11 +36,11 @@ class EvidenceServiceTest {
 
     @Test
     void createEvidence() {
-        EvidenceRequestDto requestDto = EvidenceRequestDto.builder()
-                .key(1L)
-                .value("test")
-                .ttl(Timestamp.valueOf(LocalDateTime.of(2022,12,30,23,59)))
-                .build();
+        EvidenceRequestDto requestDto = new  EvidenceRequestDto(
+                1L,
+                "test",
+                Timestamp.valueOf(LocalDateTime.of(2021,10,30,22,11))
+        );
 
         Boolean isEvidenceCreated = evidenceService.createEvidence(requestDto);
 
@@ -53,10 +53,10 @@ class EvidenceServiceTest {
 
     @Test
     void createEvidenceThrowKeyException(){
-        EvidenceRequestDto requestDto = EvidenceRequestDto.builder()
-                .value("test")
-                .ttl(Timestamp.valueOf(LocalDateTime.of(2022,12,30,23,59)))
-                .build();
+        EvidenceRequestDto requestDto = new  EvidenceRequestDto(
+                "test",
+                Timestamp.valueOf(LocalDateTime.of(2021,10,30,22,11))
+        );
 
         Throwable thrown = assertThrows(RequiredFieldIsEmptyException.class, () -> {
             evidenceService.createEvidence(requestDto);
@@ -67,10 +67,10 @@ class EvidenceServiceTest {
 
     @Test
     void createEvidenceThrowValueException(){
-        EvidenceRequestDto requestDto = EvidenceRequestDto.builder()
-                .key(1L)
-                .ttl(Timestamp.valueOf(LocalDateTime.of(2022,12,30,23,59)))
-                .build();
+        EvidenceRequestDto requestDto = new  EvidenceRequestDto(
+                1L,
+                Timestamp.valueOf(LocalDateTime.of(2021,10,30,22,11))
+        );
 
         Throwable thrown = assertThrows(RequiredFieldIsEmptyException.class, () -> {
             evidenceService.createEvidence(requestDto);
